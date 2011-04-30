@@ -90,4 +90,17 @@ ruby << EOF
 EOF
 endfunction
 
-command! -bar -narg=* GetGitDash call g:GetGithubDashboard()
+function! OpenInBrowser()
+ruby << EOF
+  cmd = case  RUBY_PLATFORM
+        when /darwin/
+          "open"
+        when /linux/
+          "xdg-open"
+        end
+  `#{cmd} #{VIM::Buffer.current.line.split('|').first}`
+EOF
+
+endfunction
+command! -bar -narg=* GitDashGet call g:GetGithubDashboard()
+command! -bar -narg=* GitDashOpen call OpenInBrowser()
