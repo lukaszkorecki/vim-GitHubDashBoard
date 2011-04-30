@@ -17,3 +17,8 @@ I know you always wanted to do it!
 
 - screenshot
 - open event in browser
+
+
+## Licence
+
+MIT or something like that
