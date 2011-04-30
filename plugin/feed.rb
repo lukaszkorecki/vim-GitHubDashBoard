@@ -50,7 +50,7 @@ class Feed
 
   def event_to_string event
     ot = "#{event['url'] || 'X'}|#{event['created_at']}|#{event['actor']} "
-    ot = "#{event['type']}|#{event['created_at']}|#{event['actor']} "
+    ot = "#{event['url'] || ''}|#{event['actor']} "
     ot << case event['type']
           when 'PushEvent'
             "pushed #{event['payload']['size']} commit#{event['payload']['size'] > 1 ? 's' : ''} to #{event['payload']['repo']}"
