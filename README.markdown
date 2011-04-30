@@ -18,7 +18,8 @@ I know you always wanted to do it!
 ### todo
 
 - screenshot
-- open event in browser
+- open event in browser when pressing `enter` key
+- nicer formatting
 
 
 ## Licence
