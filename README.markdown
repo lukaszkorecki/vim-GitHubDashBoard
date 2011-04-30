@@ -9,9 +9,11 @@ I know you always wanted to do it!
 - curl
 - `json` gem installed for the ruby interpreter Vim is using (on OSX it's the system ruby)
 
-## Try it
+## How to use it?
 
-`:GetGitDash`
+- `:GitDashGet` - opens new location list with latest events from your Github dashboard
+- when selecting an item `:GitDashOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
+
 
 ### todo
 
