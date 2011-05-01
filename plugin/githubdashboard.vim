@@ -90,6 +90,7 @@ ruby << EOF
             when 'WatchEvent'
               "#{event['payload']['action']} watching #{event['payload']['repo']}"
             when 'FollowEvent'
+              event['url'] = "http://github.com/#{event['payload']['target']['login']}"
               "started following #{event['payload']['target']['login']}"
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
