@@ -14,7 +14,7 @@ I know you always wanted to do it!
 
 `:GithubDash` - opens new location list with latest events from your Github dashboard
 
-![screenshot](https://img.skitch.com/20110501-rh2ya7sjeerm8rdseuwid24m69.png)
+![screenshot](https://img.skitch.com/20110501-ktpjtwmeaecjuxqesq56gg4rt3.png)
 
 When selecting an item `:GitHubOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
 
