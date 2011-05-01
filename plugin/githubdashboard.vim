@@ -3,7 +3,22 @@ if exists('g:loaded_autoload_github_dashboad') || v:version < 702
 endif
 let g:loaded_autoload_github_dashboad = 1
 
-function! g:GetGithubDashboard()
+function! s:OpenInBrowser()
+ruby << EOF
+  url = VIM::Buffer.current.line.split('|').last
+  VIM::message  url
+  cmd = case  RUBY_PLATFORM
+        when /darwin/
+          "open"
+        when /linux/
+          "xdg-open"
+        end
+  VIM::message `#{cmd} #{url}`
+EOF
+
+endfunction
+
+function! s:GetGithubDashboard()
 ruby << EOF
   require 'tempfile'
   require 'fileutils'
@@ -36,7 +51,7 @@ ruby << EOF
 
     def download
       begin
-        body = `curl #{@url}`
+        body = `curl --silent #{@url}`
         @content = JSON.parse body
         puts @content.first['type']
 
@@ -56,8 +71,10 @@ ruby << EOF
 
 
     def event_to_string event
-      ot = "#{event['url'] || ''}|#{event['actor']} "
+      ot = "#{event['actor']} "
       ot << case event['type']
+            when 'ForkEvent'
+              "forked #{event['payload']['repo']}"
             when 'PushEvent'
               "pushed #{event['payload']['size']} commit#{event['payload']['size'] > 1 ? 's' : ''} to #{event['payload']['repo']}"
             when 'PullRequestEvent'
@@ -65,7 +82,9 @@ ruby << EOF
             when 'IssuesEvent'
               "#{event['payload']['action']} issue ##{event['payload']['number']} in #{event['payload']['repo']}"
             when 'IssueCommentEvent'
-              "commented in #{event['payload']['repo']}"
+              s = "commented an issue in #{event['payload']['repo']} | #{event['url']}#{event['payload']['repo']}/issues"
+              event['url'] = ''
+              s
             when 'CommitCommentEvent'
               "commented on commit #{event['payload']['commit'][0..6]} in #{event['payload']['repo']}"
             when 'WatchEvent'
@@ -73,8 +92,11 @@ ruby << EOF
             when 'FollowEvent'
               "started following #{event['payload']['target']['login']}"
             else
-              " ¯\(°_o)/¯"
+              " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
+      ot << " | #{event['url']}" unless event['url'].nil? or event['url'].empty?
+
+      ot
     end
   end
 
@@ -87,20 +109,12 @@ ruby << EOF
   VIM::set_option 'errorformat=%f|%m'
   VIM::command "silent execute 'cgetfile #{f}'"
   VIM::command 'copen'
+
+  # alternative way
+  # VIM::command "e #{f}"
+  # VIM::set_option 'nomodifiable'
 EOF
 endfunction
 
-function! OpenInBrowser()
-ruby << EOF
-  cmd = case  RUBY_PLATFORM
-        when /darwin/
-          "open"
-        when /linux/
-          "xdg-open"
-        end
-  `#{cmd} #{VIM::Buffer.current.line.split('|').first}`
-EOF
-
-endfunction
-command! -bar -narg=* GitDashGet call g:GetGithubDashboard()
-command! -bar -narg=* GitDashOpen call OpenInBrowser()
+command! -bar -narg=* GitDashGet call s:GithubDashboard()
+command! -bar -narg=* OpenInBrowser call s:GithubOpenInBrowser()
