@@ -116,5 +116,5 @@ ruby << EOF
 EOF
 endfunction
 
-command! -bar -narg=* GitDashGet call s:GithubDashboard()
-command! -bar -narg=* OpenInBrowser call s:GithubOpenInBrowser()
+command! -bar -narg=* GithubDash call s:GetGithubDashboard()
+command! -bar -narg=* GithubOpen call s:OpenInBrowser()

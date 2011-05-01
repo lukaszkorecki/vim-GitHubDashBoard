@@ -8,6 +8,7 @@ I know you always wanted to do it!
 - vim >= 7.2 with Ruby support (check with `:version` and look for `+ruby`)
 - curl
 - `json` gem installed for the ruby interpreter Vim is using (on OSX it's the system ruby)
+- your `~/.gitconfig` needs to be properly [set-up to work with GitHub ](http://help.github.com/git-email-settings/)
 
 ## How to use it?
 
