@@ -12,13 +12,15 @@ I know you always wanted to do it!
 
 ## How to use it?
 
-- `:GitDashGet` - opens new location list with latest events from your Github dashboard
-- when selecting an item `:GitDashOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
+`:GithubDash` - opens new location list with latest events from your Github dashboard
+
+![screenshot](https://img.skitch.com/20110501-rh2ya7sjeerm8rdseuwid24m69.png)
+
+When selecting an item `:GitHubOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
 
 
 ### todo
 
-- screenshot
 - open event in browser when pressing `enter` key
 - nicer formatting
 
