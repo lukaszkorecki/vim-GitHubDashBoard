@@ -3,20 +3,6 @@ if exists('g:loaded_autoload_github_dashboad') || v:version < 702
 endif
 let g:loaded_autoload_github_dashboad = 1
 
-function! s:OpenInBrowser()
-ruby << EOF
-  url = VIM::Buffer.current.line.split('|').last
-  VIM::message  url
-  cmd = case  RUBY_PLATFORM
-        when /darwin/
-          "open"
-        when /linux/
-          "xdg-open"
-        end
-  VIM::message `#{cmd} #{url}`
-EOF
-
-endfunction
 
 function! s:GetGithubDashboard()
 ruby << EOF
@@ -71,7 +57,7 @@ ruby << EOF
 
 
     def event_to_string event
-      ot = "#{event['actor']} "
+      ot = "@#{event['actor']} "
       ot << case event['type']
             when 'ForkEvent'
               "forked #{event['payload']['repo']}"
@@ -107,15 +93,16 @@ ruby << EOF
 
   File.open(f, 'w') { |file| file.write  content }
 
-  VIM::set_option 'errorformat=%f|%m'
-  VIM::command "silent execute 'cgetfile #{f}'"
-  VIM::command 'copen'
+  # VIM::set_option 'errorformat=%f|%m'
+  # VIM::command "silent execute 'cgetfile #{f}'"
+  # VIM::command 'copen'
 
   # alternative way
-  # VIM::command "e #{f}"
-  # VIM::set_option 'nomodifiable'
+  VIM::command "e #{f}"
+  VIM::set_option 'nomodifiable'
+  VIM::set_option "ft=githubdashboard"
+
 EOF
 endfunction
 
 command! -bar -narg=* GithubDash call s:GetGithubDashboard()
-command! -bar -narg=* GithubOpen call s:OpenInBrowser()
