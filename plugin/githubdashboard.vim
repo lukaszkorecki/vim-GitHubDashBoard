@@ -73,11 +73,15 @@ ruby << EOF
               s
             when 'CommitCommentEvent'
               "commented on commit #{event['payload']['commit'][0..6]} in #{event['payload']['repo']}"
+            when 'GistEvent'
+              s = "#{event['payload']['action']}d a gist"
+              event['url'] = event['payload']['url']
+              s
             when 'WatchEvent'
               "#{event['payload']['action']} watching #{event['payload']['repo']}"
             when 'FollowEvent'
               event['url'] = "http://github.com/#{event['payload']['target']['login']}"
-              "started following #{event['payload']['target']['login']}"
+              "started following @#{event['payload']['target']['login']}"
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
@@ -93,14 +97,11 @@ ruby << EOF
 
   File.open(f, 'w') { |file| file.write  content }
 
-  # VIM::set_option 'errorformat=%f|%m'
-  # VIM::command "silent execute 'cgetfile #{f}'"
-  # VIM::command 'copen'
-
   # alternative way
   VIM::command "e #{f}"
-  VIM::set_option 'nomodifiable'
-  VIM::set_option "ft=githubdashboard"
+  VIM::command 'w!'
+  VIM::command 'setlocal nomodifiable'
+  VIM::command "setlocal ft=githubdashboard"
 
 EOF
 endfunction
