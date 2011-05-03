@@ -43,6 +43,7 @@ if version >= 508 || !exists("did_conf_syntax_inits")
   HiLink ghdIssueNumber Statement
   HiLink ghdPullRequest Statement
 
+  delcommand HiLink
 endif
 
 let b:current_syntax = "githubdashboard"
