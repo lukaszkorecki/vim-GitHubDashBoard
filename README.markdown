@@ -10,20 +10,27 @@ I know you always wanted to do it!
 - `json` gem installed for the ruby interpreter Vim is using (on OSX it's the system ruby)
 - your `~/.gitconfig` needs to be properly [set-up to work with GitHub ](http://help.github.com/git-email-settings/)
 
+## Installation
+
+Get [Pathogen](httsp://github.com/tpope/vim-pathogen)
+
+You'll know the rest.
+
+
+
 ## How to use it?
 
 `:GithubDash` - opens new location list with latest events from your Github dashboard
 
-![screenshot](https://img.skitch.com/20110501-ktpjtwmeaecjuxqesq56gg4rt3.png)
+![screenshot](https://img.skitch.com/20110503-812fintkh39x12np13hniedf2e.png)
 
 When selecting an item `:GitHubOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
 
 
 ### todo
 
-- open event in browser when pressing `enter` key
-- nicer formatting
-
+- open event in browser when using `<leader>o`
+- open user profile  when  using `<leader>u`
 
 ## Licence
 
