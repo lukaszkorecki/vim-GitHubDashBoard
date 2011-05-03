@@ -74,7 +74,7 @@ ruby << EOF
             when 'CommitCommentEvent'
               "commented on commit #{event['payload']['commit'][0..6]} in #{event['payload']['repo']}"
             when 'GistEvent'
-              s = "#{event['payload']['action']}d a gist"
+              s = "#{(event['payload']['action']+'ed').sub('eed', 'ed')} a gist"
               event['url'] = event['payload']['url']
               s
             when 'WatchEvent'
