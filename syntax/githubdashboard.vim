@@ -18,11 +18,13 @@ syn keyword ghdVerb forked
 syn keyword ghdVerb created
 syn keyword ghdVerb updated
 syn keyword ghdVerb started
+syn keyword ghdVerb uploaded
 
 syn keyword ghdNoun gist
 syn keyword ghdNoun issue
 syn keyword ghdNoun tag
 syn keyword ghdNoun commit
+syn keyword ghdNoun file
 syn keyword ghdNoun commits
 
 syn match ghdPullRequest /pull\ request/

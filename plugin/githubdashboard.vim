@@ -74,6 +74,8 @@ ruby << EOF
               s
             when 'CommitCommentEvent'
               "commented on commit #{event['payload']['commit'][0..6]} in #{event['payload']['repo']}"
+            when 'DownloadEvent'
+              "uploaded #{event['payload']['url'].split('/').last} to #{event['repository']['homepage']}"
             when 'GistEvent'
               s = "#{(event['payload']['action']+'ed').sub('eed', 'ed')} a gist"
               event['url'] = event['payload']['url']
