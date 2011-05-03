@@ -12,4 +12,8 @@ ruby << EOF
 EOF
 
 endfunction
-command! -bar -nargs=0 GithubOpen call <SID>OpenInBrowser()
+if exists('g:loaded_autoload_github_dashboad') || v:version < 702
+  finish
+elseif
+  command! -bar -nargs=0 GithubOpen call <SID>OpenInBrowser()
+endif
