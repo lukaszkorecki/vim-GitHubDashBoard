@@ -21,6 +21,7 @@ syn keyword ghdVerb started
 
 syn keyword ghdNoun gist
 syn keyword ghdNoun issue
+syn keyword ghdNoun tag
 syn keyword ghdNoun commit
 syn keyword ghdNoun commits
 

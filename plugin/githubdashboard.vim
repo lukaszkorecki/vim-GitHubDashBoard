@@ -82,6 +82,8 @@ ruby << EOF
             when 'FollowEvent'
               event['url'] = "http://github.com/#{event['payload']['target']['login']}"
               "started following @#{event['payload']['target']['login']}"
+            when 'CreateEvent'
+              "created a tag #{event['payload']['object_name']} in #{event['payload']['name']}"
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
