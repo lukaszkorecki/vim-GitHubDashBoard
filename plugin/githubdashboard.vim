@@ -64,7 +64,8 @@ ruby << EOF
             when 'PushEvent'
               "pushed #{event['payload']['size']} commit#{event['payload']['size'] > 1 ? 's' : ''} to #{event['payload']['repo']}"
             when 'PullRequestEvent'
-              "#{event['payload']['action']} pull request in #{event['payload']['repo']}"
+              id = event['url'].split('/').last
+              "#{event['payload']['action']} pull request ##{id} in #{event['payload']['repo']}"
             when 'IssuesEvent'
               "#{event['payload']['action']} issue ##{event['payload']['number']} in #{event['payload']['repo']}"
             when 'IssueCommentEvent'

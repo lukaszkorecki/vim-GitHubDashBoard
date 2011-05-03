@@ -5,7 +5,7 @@ elseif exists("b:current_syntax")
   endif
 
 syn match   ghdUser   /@[a-zA-Z0-9]*/
-syn match ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_]*/
+syn match ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
 
 syn match ghdIssueNumber /#[0-9]*/
 
@@ -41,8 +41,9 @@ if version >= 508 || !exists("did_conf_syntax_inits")
   HiLink ghdURL Comment
 
   HiLink ghdNoun Statement
-  HiLink ghdIssueNumber Statement
   HiLink ghdPullRequest Statement
+
+  HiLink ghdIssueNumber String
 
   delcommand HiLink
 endif
