@@ -22,15 +22,14 @@ You'll know the rest.
 
 `:GithubDash` - opens new location list with latest events from your Github dashboard
 
-![screenshot](https://img.skitch.com/20110503-812fintkh39x12np13hniedf2e.png)
+![screenshot](https://img.skitch.com/20110504-4deju25mc55akf5pkythac994.png)
 
-When selecting an item `:GitHubOpen` opens your default web browser and takes you to the linked event (like a commit comment or watched repo)
+`<leader>o` opens current event in default web browser
+`<leader>u` opens user profile if the current word is a @username
 
+### Issues
 
-### todo
-
-- open event in browser when using `<leader>o`
-- open user profile  when  using `<leader>u`
+- Github doesn't send back Issue id in some cases, so it's not visible
 
 ## Licence
 
