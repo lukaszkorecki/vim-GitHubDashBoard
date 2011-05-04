@@ -103,6 +103,7 @@ ruby << EOF
   File.open(f, 'w') { |file| file.write  content }
 
   # alternative way
+  VIM::command "vsp"
   VIM::command "e #{f}"
   VIM::command 'w!'
   VIM::command 'setlocal nomodifiable'
