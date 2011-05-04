@@ -60,6 +60,9 @@ ruby << EOF
       ot = "@#{event['actor']} "
       payload = event['payload']
       ot << case event['type']
+            when 'PublicEvent'
+              event['url'] << payload['repo']
+              "open sourced #{payload['repo']}"
             when 'ForkEvent'
               "forked #{payload['repo']}"
 
@@ -102,7 +105,7 @@ ruby << EOF
               "#{payload['action']} wiki: '#{payload['page_name']}' in #{payload['repo']}"
 
             else
-              " ¯\(°_o)/¯ - unknown event #{event['type']}"
+              " ¯\(°_o)/¯ - unknown event #{event['type']} - please create an issue"
             end
       ot << " | #{event['url']}" unless event['url'].nil? or event['url'].empty?
 
