@@ -87,6 +87,8 @@ ruby << EOF
               "started following @#{event['payload']['target']['login']}"
             when 'CreateEvent'
               "created a tag #{event['payload']['object_name']} in #{event['payload']['name']}"
+            when 'GollumEvent'
+              "#{event['payload']['action']} wiki: '#{event['payload']['page_name']}' in #{event['payload']['payload']['repo']}"
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
@@ -103,7 +105,7 @@ ruby << EOF
   File.open(f, 'w') { |file| file.write  content }
 
   # alternative way
-  VIM::command "vsp"
+  VIM::command "sp"
   VIM::command "e #{f}"
   VIM::command 'w!'
   VIM::command 'setlocal nomodifiable'
