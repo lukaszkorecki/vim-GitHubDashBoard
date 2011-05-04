@@ -58,37 +58,49 @@ ruby << EOF
 
     def event_to_string event
       ot = "@#{event['actor']} "
+      payload = event['payload']
       ot << case event['type']
             when 'ForkEvent'
-              "forked #{event['payload']['repo']}"
+              "forked #{payload['repo']}"
+
             when 'PushEvent'
-              "pushed #{event['payload']['size']} commit#{event['payload']['size'] > 1 ? 's' : ''} to #{event['payload']['repo']}"
+              "pushed #{payload['size']} commit#{payload['size'] > 1 ? 's' : ''} to #{payload['repo']}"
+
             when 'PullRequestEvent'
               id = event['url'].split('/').last
-              "#{event['payload']['action']} pull request ##{id} in #{event['payload']['repo']}"
+              "#{payload['action']} pull request ##{id} in #{payload['repo']}"
+
             when 'IssuesEvent'
-              "#{event['payload']['action']} issue ##{event['payload']['number']} in #{event['payload']['repo']}"
+              "#{payload['action']} issue ##{payload['number']} in #{payload['repo']}"
+
             when 'IssueCommentEvent'
-              s = "commented an issue in #{event['payload']['repo']} | #{event['url']}#{event['payload']['repo']}/issues"
+              url = event['url']
               event['url'] = ''
-              s
+              "commented an issue on #{payload['repo']} | #{url}#{payload['repo']}/issues"
+
             when 'CommitCommentEvent'
-              "commented on commit #{event['payload']['commit'][0..6]} in #{event['payload']['repo']}"
+              "commented on #{payload['repo']} (#{payload['commit'][0..6]})"
+
             when 'DownloadEvent'
-              "uploaded #{event['payload']['url'].split('/').last} to #{event['repository']['homepage']}"
+              "uploaded #{payload['url'].split('/').last} to #{event['repository']['homepage']}"
+
             when 'GistEvent'
-              s = "#{(event['payload']['action']+'ed').sub('eed', 'ed')} a gist"
-              event['url'] = event['payload']['url']
-              s
+              event['url'] = payload['url']
+              "#{(payload['action']+'ed').sub('eed', 'ed')} a gist"
+
             when 'WatchEvent'
-              "#{event['payload']['action']} watching #{event['payload']['repo']}"
+              "#{payload['action']} watching #{payload['repo']}"
+
             when 'FollowEvent'
-              event['url'] = "http://github.com/#{event['payload']['target']['login']}"
-              "started following @#{event['payload']['target']['login']}"
+              event['url'] = "http://github.com/#{payload['target']['login']}"
+              "started following @#{payload['target']['login']}"
+
             when 'CreateEvent'
-              "created a tag #{event['payload']['object_name']} in #{event['payload']['name']}"
+              "created a tag #{payload['object_name']} in #{payload['name']}"
+
             when 'GollumEvent'
-              "#{event['payload']['action']} wiki: '#{event['payload']['page_name']}' in #{event['payload']['repo']}"
+              "#{payload['action']} wiki: '#{payload['page_name']}' in #{payload['repo']}"
+
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
