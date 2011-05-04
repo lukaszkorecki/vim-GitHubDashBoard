@@ -88,7 +88,7 @@ ruby << EOF
             when 'CreateEvent'
               "created a tag #{event['payload']['object_name']} in #{event['payload']['name']}"
             when 'GollumEvent'
-              "#{event['payload']['action']} wiki: '#{event['payload']['page_name']}' in #{event['payload']['payload']['repo']}"
+              "#{event['payload']['action']} wiki: '#{event['payload']['page_name']}' in #{event['payload']['repo']}"
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']}"
             end
