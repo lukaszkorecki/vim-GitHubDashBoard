@@ -9,16 +9,6 @@ syn match ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
 
 syn match ghdIssueNumber /#[0-9]*/
 
-syn keyword ghdVerb commented
-syn keyword ghdVerb pulled
-syn keyword ghdVerb pushed
-syn keyword ghdVerb opened
-syn keyword ghdVerb closed
-syn keyword ghdVerb forked
-syn keyword ghdVerb created
-syn keyword ghdVerb updated
-syn keyword ghdVerb started
-syn keyword ghdVerb uploaded
 
 syn keyword ghdNoun gist
 syn keyword ghdNoun issue
@@ -38,8 +28,7 @@ if version >= 508 || !exists("did_conf_syntax_inits")
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HiLink ghdVerb Type
-  HiLink ghdUser Constant
+  HiLink ghdUser Type
   HiLink ghdURL Comment
 
   HiLink ghdNoun Statement
