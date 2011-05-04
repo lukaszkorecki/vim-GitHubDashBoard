@@ -5,9 +5,9 @@ elseif exists("b:current_syntax")
   endif
 
 syn match   ghdUser   /@[a-zA-Z0-9\-]*/
-syn match ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
+syn match   ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
 
-syn match ghdIssueNumber /#[0-9]*/
+syn match   ghdIssueNumber /#[0-9]*/
 
 
 syn keyword ghdNoun gist
@@ -17,7 +17,7 @@ syn keyword ghdNoun commit
 syn keyword ghdNoun file
 syn keyword ghdNoun commits
 
-syn match ghdPullRequest /pull\ request/
+syn match   ghdPullRequest /pull\ request/
 
 " colors
 if version >= 508 || !exists("did_conf_syntax_inits")
