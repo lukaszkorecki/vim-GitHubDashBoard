@@ -92,7 +92,7 @@ ruby << EOF
               "#{payload['action']} watching #{payload['repo']}"
 
             when 'FollowEvent'
-              event['url'] = "http://github.com/#{payload['target']['login']}"
+              event['url'] = "https://github.com/#{payload['target']['login']}"
               "started following @#{payload['target']['login']}"
 
             when 'CreateEvent'
