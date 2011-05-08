@@ -67,7 +67,19 @@ ruby << EOF
               "forked #{payload['repo']}"
 
             when 'PushEvent'
-              "pushed #{payload['size']} commit#{payload['size'] > 1 ? 's' : ''} to #{payload['repo']}"
+              m = "pushed #{payload['size']} commit#{payload['size'] > 1 ? 's' : ''} to #{payload['repo']}"
+              m << " | #{event['url']}"
+              m << "\n"
+              event['url'] = ''
+              payload['shas'].each do |commit|
+                # 0 - id
+                # 1 - email
+                # 2 - message
+                # 3 - name
+                commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
+                m << "\t#{commit[3]}: #{commit[2]} | #{commit_url}"
+              end
+              m
 
             when 'PullRequestEvent'
               id = event['url'].split('/').last
