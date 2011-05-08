@@ -115,6 +115,8 @@ ruby << EOF
 
             when 'GollumEvent'
               "#{payload['action']} wiki: '#{payload['page_name']}' in #{payload['repo']}"
+            when 'MemberEvent'
+              "#{payload['action']} #{payload['member']} to #{payload['repo']}"
 
             else
               " ¯\(°_o)/¯ - unknown event #{event['type']} - please create an issue"
