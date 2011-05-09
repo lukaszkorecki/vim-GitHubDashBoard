@@ -77,7 +77,7 @@ ruby << EOF
                 # 2 - message
                 # 3 - name
                 commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
-                m << "\t#{commit[3]}: #{commit[2]} | #{commit_url}"
+                m << "\t* #{commit[3]}: #{commit[2].gsub /[\n\r]/,' '} | #{commit_url}\n"
               end
               m
 

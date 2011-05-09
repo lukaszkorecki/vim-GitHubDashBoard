@@ -9,6 +9,8 @@ syn match   ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
 
 syn match   ghdIssueNumber /#[0-9]*/
 
+syn match   ghdCommitDot /^\t\*/
+
 
 syn keyword ghdNoun gist
 syn keyword ghdNoun issue
@@ -29,10 +31,11 @@ if version >= 508 || !exists("did_conf_syntax_inits")
   endif
 
   HiLink ghdUser Type
-  HiLink ghdURL Comment
+  HiLink ghdURL guifg=bg
 
   HiLink ghdNoun Statement
   HiLink ghdPullRequest Statement
+  HiLink ghdCommitDot Statement
 
   HiLink ghdIssueNumber String
 
