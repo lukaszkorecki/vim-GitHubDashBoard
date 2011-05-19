@@ -14,6 +14,8 @@ ruby << EOF
   require 'uri'
   require 'rubygems'
   require 'json'
+  require 'yaml'
+
 
 
   class Feed
@@ -71,15 +73,14 @@ ruby << EOF
               m << " | #{event['url']}"
               m << "\n"
               event['url'] = ''
-              payload['shas'].each do |commit|
-                # 0 - id
-                # 1 - email
-                # 2 - message
-                # 3 - name
-                commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
-                m << "\t* #{commit[3]}: #{commit[2].gsub /[\n\r]/,' '} | #{commit_url}\n"
-              end
-              m
+              m << payload['shas'].map do |commit|
+                  # 0 - id
+                  # 1 - email
+                  # 2 - message
+                  # 3 - name
+                  commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
+                   "\t* #{commit[3]}: #{commit[2]} | #{commit_url}".gsub("\n",'').gsub("\r",'')
+              end.join("\n")
 
             when 'PullRequestEvent'
               id = event['url'].split('/').last
@@ -89,9 +90,8 @@ ruby << EOF
               "#{payload['action']} issue ##{payload['number']} in #{payload['repo']}"
 
             when 'IssueCommentEvent'
-              url = event['url']
-              event['url'] = ''
-              "commented an issue on #{payload['repo']} | #{url}#{payload['repo']}/issues"
+              id = event['url'].split('/').last
+              "commented an issue ##{id} on #{payload['repo']}"
 
             when 'CommitCommentEvent'
               "commented on #{payload['repo']} (#{payload['commit'][0..6]})"
