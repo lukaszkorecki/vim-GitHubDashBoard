@@ -29,7 +29,7 @@ You'll know the rest.
 
 ### Issues
 
-- Github doesn't send back Issue id in some cases, so it's not visible
+- none at the moment :-)
 
 ## Licence
 
