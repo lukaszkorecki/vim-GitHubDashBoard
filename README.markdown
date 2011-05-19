@@ -2,6 +2,7 @@
 
 I know you always wanted to do it!
 
+![screenshot](https://img.skitch.com/20110519-dqjm4pstc7fffn7r7p3t2wm22q.png)
 
 ## Requirements
 
@@ -22,7 +23,6 @@ You'll know the rest.
 
 `:GithubDash` - opens new location list with latest events from your Github dashboard
 
-![screenshot](https://img.skitch.com/20110504-4deju25mc55akf5pkythac994.png)
 
 `<leader>o` opens current event in default web browser
 `<leader>u` opens user profile if the current word is a @username
