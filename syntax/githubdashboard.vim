@@ -31,7 +31,7 @@ if version >= 508 || !exists("did_conf_syntax_inits")
   endif
 
   HiLink ghdUser Type
-  HiLink ghdURL guifg=bg
+  HiLink ghdURL Folded
 
   HiLink ghdNoun Statement
   HiLink ghdPullRequest Statement
