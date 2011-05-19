@@ -137,6 +137,8 @@ ruby << EOF
   VIM::command "sp"
   VIM::command "e #{f}"
   VIM::command 'w!'
+  VIM::command 'setlocal nowrap'
+  VIM::command 'setlocal nospell'
   VIM::command 'setlocal nomodifiable'
   VIM::command "setlocal ft=githubdashboard"
 
