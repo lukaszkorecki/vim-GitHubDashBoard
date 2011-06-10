@@ -61,6 +61,7 @@ ruby << EOF
     def event_to_string event
       ot = "@#{event['actor']} "
       payload = event['payload']
+      payload['repo'] = event['repository'] ?  event['repository']['owner'] + '/' + event['repository']['name'] : ''
       ot << case event['type']
             when 'PublicEvent'
               event['url'] << payload['repo']
@@ -73,14 +74,15 @@ ruby << EOF
               m << " | #{event['url']}"
               m << "\n"
               event['url'] = ''
-              m << payload['shas'].map do |commit|
-                  # 0 - id
-                  # 1 - email
-                  # 2 - message
-                  # 3 - name
-                  commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
-                   "\t* #{commit[3]}: #{commit[2]} | #{commit_url}".gsub("\n",'').gsub("\r",'')
+              payload['shas'].each do |commit|
+                # 0 - id
+                # 1 - email
+                # 2 - message
+                # 3 - name
+                commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
+                m << "\t* #{commit[3]}: #{commit[2].gsub("\n", "\n\t  ")} | #{commit_url}"
               end.join("\n")
+              m
 
             when 'PullRequestEvent'
               id = event['url'].split('/').last
