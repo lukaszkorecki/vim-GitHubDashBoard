@@ -5,7 +5,7 @@ elseif exists("b:current_syntax")
   endif
 
 syn match   ghdUser   /@[a-zA-Z0-9\-]*/
-syn match   ghdURL /https:\/\/[a-zA-Z0-9\,\?\&\-\.\/_\#]*/
+syn match   ghdURL /https:\/\/[a-zA-Z0-9\,\%\?\&\-\.\/_\#]*/
 
 syn match   ghdIssueNumber /#[0-9]*/
 

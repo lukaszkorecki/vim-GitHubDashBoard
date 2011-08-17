@@ -26,7 +26,6 @@ ruby << EOF
       end
       raise "Missing Github credentials" if user.empty? or token.empty?
       @url = URI.parse "https://github.com/#{user}.private.json?token=#{token}"
-      VIM::message @url
       self
     end
 
@@ -75,13 +74,10 @@ ruby << EOF
               m << "\n"
               event['url'] = ''
               payload['shas'].each do |commit|
-                # 0 - id
-                # 1 - email
-                # 2 - message
-                # 3 - name
-                commit_url = "https://github.com/#{payload['repo']}/commit/#{commit[0]}"
-                m << "\t* #{commit[3]}: #{commit[2].gsub("\n", "\n\t  ")} | #{commit_url}"
-              end.join("\n")
+                _id, email, message, name = commit
+                commit_url = "https://github.com/#{payload['repo']}/commit/#{_id}"
+                m << "\t* #{name}: #{message.gsub("\n", "\n\t  ")} | #{commit_url}\n"
+              end
               m
 
             when 'PullRequestEvent'
@@ -92,7 +88,7 @@ ruby << EOF
               "#{payload['action']} issue ##{payload['number']} in #{payload['repo']}"
 
             when 'IssueCommentEvent'
-              id = event['url'].split('/').last
+              id = event['url'].split('/').last.split('#').first
               "commented an issue ##{id} on #{payload['repo']}"
 
             when 'CommitCommentEvent'
@@ -116,7 +112,7 @@ ruby << EOF
               "created a tag #{payload['object_name']} in #{payload['name']}"
 
             when 'GollumEvent'
-              "#{payload['action']} wiki: '#{payload['page_name']}' in #{payload['repo']}"
+              "#{payload['action']} wiki: '#{payload['pages'].first['page_name']}' in #{payload['repo']}"
             when 'MemberEvent'
               "#{payload['action']} #{payload['member']} to #{payload['repo']}"
 
@@ -131,7 +127,11 @@ ruby << EOF
 
   f = VIM::evaluate 'tempname()'
   VIM::message 'Downloading information...'
-  content = Feed.new.download.to_list.join("\n")
+  body = Feed.new.download.to_list.join("\n")
+  user, token = Feed.new.read_git_config
+
+  content = "# Github Dashboard for #{user} @ #{`date`}"
+  content << "\n" << body
 
   File.open(f, 'w') { |file| file.write  content }
 
